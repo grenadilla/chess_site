@@ -2,27 +2,24 @@
 
 {% block content %}
 
-{% if player %}
+{% if game %}
     <div class="container">
-        <h1>{{player.user_name}}</h1>
-        <h3>{{player.first_name}} {{player.last_name}}</h3>
-        <hr>
         <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Game ID</th>
-                    <th>White</th>
-                    <th>Black</th>
-                    <th>Winner</th>
-                    <th>Date Finished</th>
-                </tr>
-            </thead>
             <tbody>
-            {% for game in games %}
-            <tr class="clickable-link" data-href={% url "games" game.game_id %}>
+                <tr>
+                    <th scope="row">Game ID</th>
                     <td>{{game.game_id}}</td>
+                </tr>
+                <tr class="clickable-link" data-href={% url "players" game.player_white.user_name %}>
+                    <th scope="row">White</th>
                     <td>{{game.player_white.user_name}}</td>
+                </tr>
+                <tr class="clickable-link" data-href={% url "players" game.player_black.user_name %}>
+                    <th scope="row">Black</th>
                     <td>{{game.player_black.user_name}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Winner</th>
                     {% if game.winner_id == 0 %}
                     <td>Draw</td>
                     {% elif game.winner_id == 1 %}
@@ -30,11 +27,16 @@
                     {% elif game.winner_id == 2 %}
                     <td>{{game.player_black.user_name}}</td>
                     {% endif %}
+                </tr>
+                <tr>
+                    <th scope="row">Date Finished</th>
                     <td>{{game.date_finished}}</td>
                 </tr>
-            {% endfor %}
             </tbody>
         </table>
+        <iframe width=600 height=397 frameborder=0
+            src={{"https://lichess.org/embed/"|add:game.game_id|add:"?theme=auto&bg=auto"}}
+            ></iframe>
     </div>
 {% endif %}
 {% endblock %}

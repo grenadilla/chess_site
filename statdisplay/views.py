@@ -15,4 +15,6 @@ def players(request, user_name):
     return render(request, "statdisplay/player.html", context)
 
 def games(request, game_id):
-    return HttpResponse(game_id)
+    game = Game.objects.filter(game_id=game_id).first()
+    context = {'game': game}
+    return render(request, "statdisplay/game.html", context)
