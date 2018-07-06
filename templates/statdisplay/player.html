@@ -1,6 +1,11 @@
 {% extends "statdisplay/base.html" %}
 
 {% block content %}
+
+{% load static %}
+<link rel="stylesheet" href={% static "statdisplay/player.css" %}></link>
+<script src={% static "statdisplay/player.js" %}></script>
+
 {% if player %}
     <div class="container">
         <h1>{{player.user_name}}</h1>
@@ -18,7 +23,7 @@
             </thead>
             <tbody>
             {% for game in games %}
-                <tr>
+            <tr class="clickable-link" data-href={% url "games" game.game_id %}>
                     <td>{{game.game_id}}</td>
                     <td>{{game.player_white.user_name}}</td>
                     <td>{{game.player_black.user_name}}</td>
