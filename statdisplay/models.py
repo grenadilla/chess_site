@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 class Player(models.Model):
@@ -19,6 +20,7 @@ class Game(models.Model):
     winner_id = models.IntegerField(default=0)
     # 0 is draw, 1 is white, 2 is black
     complete = models.BooleanField(default=False)
+    date_finished = models.DateField(default=datetime.date.today())
 
     def __str__(self):
         return "Game: " + self.game_id
