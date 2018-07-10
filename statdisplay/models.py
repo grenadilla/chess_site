@@ -16,7 +16,7 @@ class Game(models.Model):
     game_id = models.CharField(max_length=32)
     players = models.ManyToManyField(Player, related_name="games")
     player_white = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="white_games")
-    player_black = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="black_names")
+    player_black = models.ForeignKey(Player, on_delete=models.CASCADE, related_name="black_games")
     winner_id = models.IntegerField(default=0)
     # 0 is draw, 1 is white, 2 is black
     complete = models.BooleanField(default=False)
