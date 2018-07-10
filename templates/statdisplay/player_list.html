@@ -1,0 +1,27 @@
+{% extends "statdisplay/base.html" %}
+
+{% block content %}
+{% if players %}
+    <div class="container">
+        <h1>All Players</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Games Played</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players %}
+                <tr class="clickable-link" data-href={% url "players" player.user_name %}>
+                    <td>{{player.user_name}}</td>
+                    <td>{{player.first_name|add:" "|add:player.last_name}}</td>
+                    <td>{% with white_num=player.white_games.all.values|length %}{{player.black_games.all.values|length|add:white_num}}{% endwith %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+{% endblock %}
