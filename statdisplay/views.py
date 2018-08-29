@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator
 
 # Create your views here.
 from django.http import HttpResponse
@@ -10,6 +11,9 @@ def index(request):
 
 def player_list(request):
     players = Player.objects.all().order_by('user_name')
+    paginator = Paginator(players, 25)
+    page = request.GET.get('page')
+    players = paginator.get_page(page)
     context = {'players': players}
     return render(request, "statdisplay/player_list.html", context)
 
