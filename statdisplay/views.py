@@ -21,11 +21,17 @@ def players(request, user_name):
     player = Player.objects.filter(user_name__iexact=user_name).first()
     games = (Game.objects.filter(player_white=player) | 
             Game.objects.filter(player_black=player)).distinct().order_by('-date_finished')
+    paginator = Paginator(games, 25)
+    page = request.GET.get('page')
+    games = paginator.get_page(page)
     context = {'player': player, 'games': games}
     return render(request, "statdisplay/player.html", context)
 
 def game_list(request):
     games = Game.objects.all().order_by('-date_finished')
+    paginator = Paginator(games, 25)
+    page = request.GET.get('page')
+    games = paginator.get_page(page)
     context = {'games': games}
     return render(request, "statdisplay/game_list.html", context)
 

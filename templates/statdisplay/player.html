@@ -35,6 +35,7 @@
             {% endfor %}
             </tbody>
         </table>
+        {% include "statdisplay/pagination.html" with list=games %}
     </div>
 {% endif %}
 {% endblock %}
