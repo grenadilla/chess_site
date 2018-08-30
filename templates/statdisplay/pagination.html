@@ -5,10 +5,12 @@
     {% else %}
     <li class="page-item disabled"><a class="page-link" tabindex="-1" href="#">&laquo; First</a></li>
     {% endif %}
+
     <li class="page-item active"><a class="page-link" href="#">{{ list.number }}</a></li>
+
     {% if list.has_next %}
-    <li class="page-item"><a class="page-link" href="?page={{ list.paginator.num_pages }}">Last &raquo;</a></li>
     <li class="page-item"><a href="?page={{ list.next_page_number }}">{{ list.next_page_number }}</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{ list.paginator.num_pages }}">Last &raquo;</a></li>
     {% else %}
     <li class="page-item disabled"><a class="page-link" tabindex="-1" href="#">Last &raquo;</a></li>
     {% endif %}
