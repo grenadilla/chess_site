@@ -38,7 +38,7 @@ if resp.status_code == 200:
 for player in Player.objects.all():
     url = ("https://lichess.org/api/games/user/" + 
            player.user_name + 
-           "?moves=false?tags=false?since=" + 
+           "?moves=false&tags=false&since=" + 
            str(UNIX_TIME))
     print("Checking player " + player.user_name + " using url: " + url)
     resp = requests.get(url, headers={"Accept": "application/x-ndjson"})
