@@ -5,7 +5,9 @@
 {% if player %}
     <div class="container">
         <h1>{{player.user_name}}</h1>
+        {% if player.first_name != "placeholder" and player.last_name != "placeholder" %}
         <h3>{{player.first_name}} {{player.last_name}}</h3>
+        {% endif %}
         <hr>
         <table class="table table-hover">
             <thead>

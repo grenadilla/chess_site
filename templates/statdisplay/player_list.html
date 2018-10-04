@@ -16,7 +16,11 @@
                 {% for player in players %}
                 <tr class="clickable-link" data-href={% url "players" player.user_name %}>
                     <td>{{player.user_name}}</td>
+                    {% if player.first_name != "placeholder" and player.last_name != "placeholder" %}
                     <td>{{player.first_name|add:" "|add:player.last_name}}</td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                     <td>{% with white_num=player.white_games.all.values|length %}{{player.black_games.all.values|length|add:white_num}}{% endwith %}</td>
                 </tr>
                 {% endfor %}
