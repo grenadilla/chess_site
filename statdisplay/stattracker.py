@@ -81,5 +81,6 @@ for game in Game.objects.filter(complete=False):
                 game.winner_id = 2
             elif "winner" in data and data["winner"] == "white":
                 game.winner_id = 1
+            game.date_finished = datetime.date.today()
             game.save()
             print("Updated finished game " + game.game_id)
