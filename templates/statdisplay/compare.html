@@ -1,0 +1,23 @@
+{% extends "statdisplay/base.html" %}
+
+{% block content %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<div class="container">
+    <form method="GET">
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>    
+    {% if player1 and player2 %}
+    {% if player1 == player2 %}
+    <h2>Don't compare someone to themselves!</h2>
+    {% elif %}
+    <h2>{{player1.user_name}}</h2>
+    <h2>{{player2.user_name}}</h2>
+    {% endif %}
+    {% endif %}
+</div>
+
+{% endblock %}
+
