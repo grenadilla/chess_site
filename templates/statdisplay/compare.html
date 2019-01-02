@@ -12,9 +12,36 @@
     {% if player1 and player2 %}
     {% if player1 == player2 %}
     <h2>Don't compare someone to themselves!</h2>
-    {% elif %}
+    {% else %}
     <h2>{{player1.user_name}}</h2>
     <h2>{{player2.user_name}}</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>{{player1.user_name}}</th>
+                <th>{{player2.user_name}}</th>
+                <th>Draw</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Games</th>
+                <td>{{win1}}</td>
+                <td>{{win2}}</td>
+                <td>{{draws}}</td>
+                <td>{{total}}</td>
+            </tr>
+            <tr>
+                <th scope="row">%</th>
+                <td>{{win1p}}</td>
+                <td>{{win2p}}</td>
+                <td>{{drawsp}}</td>
+                <td>100%</td>
+            </tr>
+        </tbody>
+    </table>
     {% endif %}
     {% endif %}
 </div>

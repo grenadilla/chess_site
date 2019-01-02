@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 # Create your views here.
 from django.http import HttpResponse
 from statdisplay.models import Player, Game
+from .forms import CompareForm
 
 
 def index(request):
@@ -39,3 +40,15 @@ def games(request, game_id):
     game = Game.objects.filter(game_id=game_id).first()
     context = {'game': game}
     return render(request, "statdisplay/game.html", context)
+
+def compare(request):
+    player1 = request.GET.get('player1')
+    player2 = request.GET.get('player2')
+
+    form = CompareForm(initial={'player1': player1, 'player2': player2})
+
+    player1 = Player.objects.filter(user_name=player1).first()
+    player2 = Player.objects.filter(user_name=player2).first()
+
+    context = {'form': form, 'player1': player1, 'player2': player2}
+    return render(request, "statdisplay/compare.html", context)
