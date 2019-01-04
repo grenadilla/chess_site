@@ -50,5 +50,34 @@ def compare(request):
     player1 = Player.objects.filter(user_name=player1).first()
     player2 = Player.objects.filter(user_name=player2).first()
 
-    context = {'form': form, 'player1': player1, 'player2': player2}
+    games = (Game.objects.filter(player_white=player1, player_black=player2) |
+            Game.objects.filter(player_white=player2, player_black=player1)).order_by('-date_finished')
+
+    win1 = win2 = draws = 0
+    for game in games:
+        if game.winner_id == 1 and game.player_white == player1:
+            win1 += 1
+        elif game.winner_id == 1 and game.player_white == player2:
+            win2 += 1
+        elif game.winner_id == 2 and game.player_black == player1:
+            win1 += 1
+        elif game.winner_id == 2 and game.player_black == player2:
+            win2 += 1
+        else:
+            draws += 1
+
+    total = win1 + win2 + draws
+
+    context = {'form': form, 'player1': player1, 'player2': player2,
+            'win1': win1, 'win2': win2, 'draws': draws, 'total': total}
+
+    if len(games) > 0:
+        win1p = str(round(win1*100/float(total),2)) + '%'
+        win2p = str(round(win2*100/float(total),2)) + '%'
+        drawsp = str(round(draws*100/float(total),2)) + '%'
+        context['win1p'] = win1p
+        context['win2p'] = win2p
+        context['drawsp'] = drawsp
+        context['total'] = total
+
     return render(request, "statdisplay/compare.html", context)
