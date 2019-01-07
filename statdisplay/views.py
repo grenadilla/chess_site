@@ -69,7 +69,7 @@ def compare(request):
     total = win1 + win2 + draws
 
     context = {'form': form, 'player1': player1, 'player2': player2,
-            'win1': win1, 'win2': win2, 'draws': draws, 'total': total}
+            'win1': win1, 'win2': win2, 'draws': draws, 'total': total, 'games': games}
 
     if len(games) > 0:
         win1p = str(round(win1*100/float(total),2)) + '%'

@@ -13,8 +13,7 @@
     {% if player1 == player2 %}
     <h2>Don't compare someone to themselves!</h2>
     {% else %}
-    <h2>{{player1.user_name}}</h2>
-    <h2>{{player2.user_name}}</h2>
+    <h2>{{player1.user_name}} and {{player2.user_name}}</h2>
     <table class="table">
         <thead>
             <tr>
@@ -40,6 +39,35 @@
                 <td>{{drawsp}}</td>
                 <td>100%</td>
             </tr>
+        </tbody>
+    </table>
+    <h2>Games</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Game ID</th>
+                <th>White</th>
+                <th>Black</th>
+                <th>Winner</th>
+                <th>Date Finished</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for game in games %}
+            <tr class="clickable-link" data-href={% url "games" game.game_id %}>
+                <td>{{game.game_id}}</td>
+                <td>{{game.player_white.user_name}}</td>
+                <td>{{game.player_black.user_name}}</td>
+                {% if game.winner_id == 0 %}
+                <td>Draw</td>
+                {% elif game.winner_id == 1 %}
+                <td>{{game.player_white.user_name}}</td>
+                {% elif game.winner_id == 2 %}
+                <td>{{game.player_black.user_name}}</td>
+                {% endif %}
+                <td>{{game.date_finished}}</td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
     {% endif %}
