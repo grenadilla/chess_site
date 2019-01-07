@@ -15,3 +15,5 @@ class CompareForm(forms.Form):
         self.fields['player2'] = forms.ChoiceField(choices=get_compare_choices())
         self.fields['player1'].widget.attrs['class'] = 'fancy-select'
         self.fields['player2'].widget.attrs['class'] = 'fancy-select'
+        self.fields['player1'].widget.attrs['style'] = 'width: 15%'
+        self.fields['player2'].widget.attrs['style'] = 'width: 15%'
