@@ -68,6 +68,10 @@ def compare(request):
 
     total = win1 + win2 + draws
 
+    paginator = Paginator(games, 25)
+    page = request.GET.get('page')
+    games = paginator.get_page(page)
+
     context = {'form': form, 'player1': player1, 'player2': player2,
             'win1': win1, 'win2': win2, 'draws': draws, 'total': total, 'games': games}
 
