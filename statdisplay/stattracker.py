@@ -3,6 +3,7 @@ import requests, json, datetime
 import django
 
 sys.path.append('..')
+sys.path.append('/home/Grenadilla/chess_site')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "chess_site.settings")
 django.setup()
 
