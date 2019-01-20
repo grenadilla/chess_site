@@ -1,4 +1,5 @@
 {% load stat_tags %}
+{% pagination_list list.paginator.num_pages list.number as page_list %}
 <ul class="pagination">
     {% if list.has_previous %}
     <li class="page-item">
@@ -6,12 +7,6 @@
     </li>
     <li class="page-item">
         <a class="page-link" title="Previous Page" href="?page={{ list.previous_page_number }}{{ request.GET|pagination_params }}">&lsaquo;</a>
-    </li>
-    {% if list.number != 2 %}
-    <li class="page-item"><a class="page-link" href="?page=1{{ request.GET|pagination_params }}">1</a></li>
-    {% endif %}
-    <li class="page-item">
-        <a class="page-link" href="?page={{ list.previous_page_number }}{{ request.GET|pagination_params }}">{{ list.previous_page_number }}</a>
     </li>
     {% else %}
     <li class="page-item disabled">
@@ -22,19 +17,21 @@
     </li>
     {% endif %} 
 
-    <li class="page-item active"><a class="page-link" href="#">{{ list.number }}</a></li>
-
-    {% if list.has_next %}
+    {% for page in page_list %}
+    {% if page == list.number %}
+    <li class="page-item active">
+        <a class="page-link" href="?page={{ list.number }}{{ request.GET|pagination_params }}">{{ list.number }}</a>
+    </li>
+    {% elif page != 0 %}
     <li class="page-item">
-        <a class="page-link" href="?page={{ list.next_page_number }}{{ request.GET|pagination_params }}">{{ list.next_page_number }}</a>
+        <a class="page-link" href="?page={{ page }}{{ request.GET|pagination_params }}">{{ page }}</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+        <a class="page-link">&hellip;</a>
     </li>
     {% endif %}
-
-    {% if list.number != list.paginator.num_pages and list.number != list.paginator.num_pages|add:-1 %}
-    <li class="page-item">
-        <a class="page-link" href="?page={{ list.paginator.num_pages }}{{ request.GET|pagination_params }}">{{ list.paginator.num_pages }}</a>
-    </li>
-    {% endif %}
+    {% endfor %}
 
     {% if list.has_next %}
     <li class="page-item">
